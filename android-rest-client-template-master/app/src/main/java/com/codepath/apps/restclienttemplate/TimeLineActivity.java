@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,8 +16,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nullable;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -63,6 +67,20 @@ public class TimeLineActivity extends AppCompatActivity {
                     return super.onOptionsItemSelected(item);
             }
         }
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            if (requestCode == COMPOSE_TWEET_REQUESTED_CODE && resultCode == RESULT_OK) {
+                Tweet resultTweet = Parcels.unwrap(data.getParcelableExtra(Tweet.class.getSimpleName()));
+
+                tweets.add(0, resultTweet);
+                tweetAdapter.notifyItemInserted(0);
+                rvTweets.scrollToPosition(0);
+
+                Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
 
         private void composeMessage() {
             Intent composeTweet = new Intent(this, ComposeActivity.class);
