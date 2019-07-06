@@ -20,12 +20,12 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etTweetInput;
     Button btnSend;
     TwitterClient client;
-    //public static final String RESULT_TWEET_KEY = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+
         client = TwitterApp.getRestClient(this);
         etTweetInput = findViewById(R.id.etTweetInput);
         btnSend = findViewById(R.id.btnsend);
@@ -35,21 +35,6 @@ public class ComposeActivity extends AppCompatActivity {
                 sendTweet();
             }
         });
-        /**
-        etTweetInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                if(s.length() != 0)
-                    field2.setText("");
-            }
-        });
-        } */
 
     }
 
